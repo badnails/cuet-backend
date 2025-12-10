@@ -10,8 +10,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  # Define your Swarm Service name here for easy updates
-  # format: <stack_name>_<service_name>
   SWARM_SERVICE_NAME: cuet_stack_backend 
 
 jobs:
@@ -87,7 +85,6 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    # Only deploy when pushing to main (Production)
     if: github.ref == 'refs/heads/main'
     
     steps:
@@ -98,7 +95,6 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # 1. Pull the latest image to ensure the node has the fresh layer
             docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             
             # 2. Update the service
