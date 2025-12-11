@@ -88,7 +88,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     
     steps:
-      - name: Deploy to Swarm
+      - name: Deploy to Swarm?
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
